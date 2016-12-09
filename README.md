@@ -1,6 +1,6 @@
 # BlindBox
 
-Social networking app using location and common interest with Facebook login and JSQMessagesViewController thanks to jessesquires found [here](https://github.com/jessesquires/JSQMessagesViewController)
+Social networking app using location and common interest with Facebook login and JSQMessagesViewController found [here](https://github.com/jessesquires/JSQMessagesViewController)
 
 # Using it
 
