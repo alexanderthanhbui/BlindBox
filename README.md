@@ -4,11 +4,13 @@ Social networking app using location and common interest with Facebook login and
 
 # Using it
 
-Before using it, you need a Facebook account. For testing purposes, our test account may be used:
+Before using it, you need a Facebook account and location use authorization. For testing purposes, our test account may be used:
 
 email: yuxzpci_moiduman_1470419984@tfbnw.net
 
 password: testuser123
+
+Once logged on, users may find groups made by other users based on their current location. Alternatively the user may create a new group by clicking on the search bar at the top pf the main view.
 
 ## License
 
