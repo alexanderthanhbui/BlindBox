@@ -14,7 +14,7 @@ Once logged on, users may find groups made by other users based on their current
 
 ## License
 
-`BlindBox` is released under an [MIT License][mitLink]. See `LICENSE` for details.
+`BlindBox` is released under an [MIT License](https://opensource.org/licenses/mit-license.php). See `LICENSE` for details.
 
 >**Copyright &copy; 2016-present Alexander Bui.**
 
