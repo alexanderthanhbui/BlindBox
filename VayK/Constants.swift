@@ -1,9 +1,9 @@
 //
 //  Constants.swift
-//  SwiftParseChat
+//  VayK
 //
-//  Created by Jesse Hu on 2/20/15.
-//  Copyright (c) 2015 Jesse Hu. All rights reserved.
+//  Created by Hayne Park on 11/28/16.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import Foundation
@@ -34,12 +34,17 @@ let PF_USER_OBJECTID					= "objectId"				//	String
 let PF_USER_USERNAME					= "username"				//	String
 let PF_USER_PASSWORD					= "password"				//	String
 let PF_USER_EMAIL						= "email"                   //	String
-let PF_USER_EMAILCOPY					= "emailCopy"               //	String
-let PF_USER_FULLNAME					= "FirstName"				//	String
-let PF_USER_FULLNAME_LOWER				= "FirstnameLower"          //	String
+let PF_USER_GENDER                      = "gender"                  //	String
+let PF_USER_FIRSTNAME					= "firstName"				//	String
+let PF_USER_LASTNAME					= "lastName"				//	String
+let PF_USER_BIRTHDAY                    = "birthday"                //	String
+let PF_USER_FIRSTNAME_LOWER				= "firstNameLower"          //	String
 let PF_USER_FACEBOOKID					= "facebookId"              //	String
-let PF_USER_PICTURE						= "UserImage"               //	File
-let PF_USER_THUMBNAIL					= "UserImage"               //	File
+let PF_USER_WEBSITE                     = "website"                 //	String
+let PF_USER_BIO                         = "bio"                     //	String
+let PF_USER_PICTURE						= "userImage"               //	File
+let PF_USER_THUMBNAIL					= "userImage"               //	File
+let PF_USER_LOCATION                    = "location"				//	String
 
 /* Chat */
 let PF_CHAT_CLASS_NAME					= "Chat"					//	Class name
@@ -58,10 +63,13 @@ let PF_GROUPS_AGE_MINIMUM               = "ageMinimum"				//	Number
 let PF_GROUPS_AGE_MAXIMUM               = "ageMaximum"				//	Number
 let PF_GROUPS_TIMELINE                  = "timeline"                //  Number
 let PF_GROUPS_LOCATION                  = "location"				//	String
+let PF_GROUPS_CITY                      = "city"                    //	String
 let PF_GROUPS_SIZE                      = "size"                    //	Number
 let PF_GROUPS_GENDER                    = "gender"                  //	String
 let PF_GROUPS_IMAGE                     = "image"                   //	String
 let PF_GROUPS_POINTER                   = "pointer"                 //	Pointer to User Class
+let PF_GROUPS_CREATEDAT					= "createdAt"               //	Date
+let PF_GROUPS_FULL                      = "full"                    //	Bool
 
 /* Messages*/
 let PF_MESSAGES_CLASS_NAME				= "Messages"				//	Class name

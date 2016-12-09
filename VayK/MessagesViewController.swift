@@ -1,9 +1,9 @@
 //
 //  MessagesViewController.swift
-//  
+//  VayK
 //
-//  Created by Jesse Hu on 3/3/15.
-//
+//  Created by Hayne Park on 11/28/16.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import UIKit
@@ -20,15 +20,15 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "cleanup", name: NOTIFICATION_USER_LOGGED_OUT, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.cleanup), name: NSNotification.Name(rawValue: NOTIFICATION_USER_LOGGED_OUT), object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "loadMessages", name: "reloadMessages", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MessagesViewController.loadMessages), name: NSNotification.Name(rawValue: "reloadMessages"), object: nil)
         
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: "loadMessages", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(MessagesViewController.loadMessages), for: UIControlEvents.valueChanged)
         self.tableView?.addSubview(self.refreshControl!)
         
-        self.emptyView?.hidden = true
+        self.emptyView?.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,10 +36,10 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if PFUser.currentUser() != nil {
+        if PFUser.current() != nil {
             self.loadMessages()
         } else {
             Utilities.loginUser(self)
@@ -50,12 +50,12 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
     
     func loadMessages() {
         let query = PFQuery(className: PF_MESSAGES_CLASS_NAME)
-        query.whereKey(PF_MESSAGES_USER, equalTo: PFUser.currentUser()!)
+        query.whereKey(PF_MESSAGES_USER, equalTo: PFUser.current()!)
         query.includeKey(PF_MESSAGES_LASTUSER)
-        query.orderByDescending(PF_MESSAGES_UPDATEDACTION)
-        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+        query.order(byDescending: PF_MESSAGES_UPDATEDACTION)
+        query.findObjectsInBackground { (objects: [PFObject]?, error: Error?) -> Void in
             if error == nil {
-                self.messages.removeAll(keepCapacity: false)
+                self.messages.removeAll(keepingCapacity: false)
                 self.messages += objects as! [PFObject]!
                 self.tableView.reloadData()
                 self.updateEmptyView()
@@ -70,13 +70,13 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
     // MARK: - Helper methods
     
     func updateEmptyView() {
-        self.emptyView?.hidden = (self.messages.count != 0)
+        self.emptyView?.isHidden = (self.messages.count != 0)
     }
     
     func updateTabCounter() {
         var total = 0
         for message in self.messages {
-            total += message[PF_MESSAGES_COUNTER].integerValue
+            total += (message[PF_MESSAGES_COUNTER] as AnyObject).intValue
         }
         var item = self.tabBarController?.tabBar.items?[2] as UITabBarItem?
         //item!.badgeValue = (total == 0) ? nil : "\(total)"
@@ -84,37 +84,37 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
     
     // MARK: - User actions
     
-    func openChat(groupId: String) {
-        self.performSegueWithIdentifier("messagesChatSegue", sender: groupId)
+    func openChat(_ groupId: String) {
+        self.performSegue(withIdentifier: "messagesChatSegue", sender: groupId)
     }
     
     func cleanup() {
-        self.messages.removeAll(keepCapacity: false)
+        self.messages.removeAll(keepingCapacity: false)
         self.tableView.reloadData()
         
-        var item = self.tabBarController?.tabBar.items?[1] as UITabBarItem?
+        let item = self.tabBarController?.tabBar.items?[1] as UITabBarItem?
         item!.badgeValue = nil
     }
     
-    @IBAction func compose(sender: UIBarButtonItem) {
-        var actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Single recipient", "Multiple recipients", "Address Book", "Facebook Friends")
-        actionSheet.showFromTabBar(self.tabBarController!.tabBar)
+    @IBAction func compose(_ sender: UIBarButtonItem) {
+        let actionSheet = UIActionSheet(title: nil, delegate: self, cancelButtonTitle: "Cancel", destructiveButtonTitle: nil, otherButtonTitles: "Single recipient", "Multiple recipients", "Address Book", "Facebook Friends")
+        actionSheet.show(from: self.tabBarController!.tabBar)
     }
 
     // MARK: - Prepare for segue to chatVC
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "messagesChatSegue" {
-            let chatVC = segue.destinationViewController as! ChatViewController
+            let chatVC = segue.destination as! ChatViewController
             chatVC.hidesBottomBarWhenPushed = true
             let groupId = sender as! String
             chatVC.groupId = groupId
         } else if segue.identifier == "selectSingleSegue" {
-            let selectSingleVC = (segue.destinationViewController as! UINavigationController).topViewController as! SelectSingleViewController
+            let selectSingleVC = (segue.destination as! UINavigationController).topViewController as! SelectSingleViewController
             //let selectSingleVC = segue.destinationViewController.topViewController as! SelectSingleViewController
             selectSingleVC.delegate = self
         } else if segue.identifier == "selectSingleSegue" {
-            let selectSingleVC = (segue.destinationViewController as! UINavigationController).topViewController as! SearchTableViewController
+            let selectSingleVC = (segue.destination as! UINavigationController).topViewController as! SearchTableViewController
             //let selectSingleVC = segue.destinationViewController.topViewController as! SelectSingleViewController
             selectSingleVC.delegate = self
         }
@@ -122,17 +122,17 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
 
     // MARK: - UIActionSheetDelegate
     
-    func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
         if buttonIndex != actionSheet.cancelButtonIndex {
             switch buttonIndex {
             case 1:
-                self.performSegueWithIdentifier("selectSingleSegue", sender: self)
+                self.performSegue(withIdentifier: "selectSingleSegue", sender: self)
             case 2:
-                self.performSegueWithIdentifier("selectMultipleSegue", sender: self)
+                self.performSegue(withIdentifier: "selectMultipleSegue", sender: self)
             case 3:
-                self.performSegueWithIdentifier("addressBookSegue", sender: self)
+                self.performSegue(withIdentifier: "addressBookSegue", sender: self)
             case 4:
-                self.performSegueWithIdentifier("facebookFriendsSegue", sender: self)
+                self.performSegue(withIdentifier: "facebookFriendsSegue", sender: self)
             default:
                 return
             }
@@ -141,77 +141,77 @@ class MessagesViewController: UITableViewController, UIActionSheetDelegate, Sele
     
     // MARK: - SearchDelegate
     
-    func didSearchUser(user2: PFUser) {
-        let user1 = PFUser.currentUser()
+    func didSearchUser(_ user2: PFUser) {
+        let user1 = PFUser.current()
         let groupId = Messages.startPrivateChat(user1!, user2: user2)
         self.openChat(groupId)
     }
     
     // MARK: - SelectSingleDelegate
     
-    func didSelectSingleUser(user2: PFUser) {
-        let user1 = PFUser.currentUser()
+    func didSelectSingleUser(_ user2: PFUser) {
+        let user1 = PFUser.current()
         let groupId = Messages.startPrivateChat(user1!, user2: user2)
         self.openChat(groupId)
     }
     
     // MARK: - SelectMultipleDelegate
     
-    func didSelectMultipleUsers(selectedUsers: [PFUser]!) {
+    func didSelectMultipleUsers(_ selectedUsers: [PFUser]!) {
         let groupId = Messages.startMultipleChat(selectedUsers)
         self.openChat(groupId)
     }
     
     // MARK: - AddressBookDelegate
     
-    func didSelectAddressBookUser(user2: PFUser) {
-        let user1 = PFUser.currentUser()
+    func didSelectAddressBookUser(_ user2: PFUser) {
+        let user1 = PFUser.current()
         let groupId = Messages.startPrivateChat(user1!, user2: user2)
         self.openChat(groupId)
     }
     
     // MARK: - FacebookFriendsDelegate
     
-    func didSelectFacebookUser(user2: PFUser) {
-        let user1 = PFUser.currentUser()
+    func didSelectFacebookUser(_ user2: PFUser) {
+        let user1 = PFUser.current()
         let groupId = Messages.startPrivateChat(user1!, user2: user2)
         self.openChat(groupId)
     }
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.messages.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("messagesCell") as! MessagesCell
-        cell.bindData(self.messages[indexPath.row])
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "messagesCell") as! MessagesCell
+        cell.bindData(self.messages[(indexPath as NSIndexPath).row])
         return cell
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        Messages.deleteMessageItem(self.messages[indexPath.row])
-        self.messages.removeAtIndex(indexPath.row)
-        self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        Messages.deleteMessageItem(self.messages[(indexPath as NSIndexPath).row])
+        self.messages.remove(at: (indexPath as NSIndexPath).row)
+        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
         self.updateEmptyView()
         self.updateTabCounter()
     }
     
     // MARK: - UITableViewDelegate
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        let message = self.messages[indexPath.row] as PFObject
+        let message = self.messages[(indexPath as NSIndexPath).row] as PFObject
         self.openChat(message[PF_MESSAGES_GROUPID] as! String)
     }
 

@@ -2,8 +2,8 @@
 //  Restaurant.swift
 //  VayK
 //
-//  Created by Hayne Park on 4/15/16.
-//  Copyright © 2016 mgoldspink. All rights reserved.
+//  Created by Hayne Park on 11/28/16.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import Foundation

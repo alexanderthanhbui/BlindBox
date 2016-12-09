@@ -3,7 +3,7 @@
 //  VayK
 //
 //  Created by Hayne Park on 8/1/16.
-//  Copyright © 2016 mgoldspink. All rights reserved.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import UIKit
@@ -13,52 +13,52 @@ class CategoryTableViewController: UITableViewController {
     var categoryNames = ["Arts", "Classes", "Education", "Food & Drinks", "Misc.", "Music", "Networking", "Social", "Sports"]
 
     
-    var genderIsPicked = [Bool](count: 9, repeatedValue: false)
+    var genderIsPicked = [Bool](repeating: false, count: 9)
     
-    var lastSelection: NSIndexPath!
+    var lastSelection: IndexPath!
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    override func tableView(tableView: UITableView, numberOfRowsInSection section:
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section:
         Int) -> Int {
             return categoryNames.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "Category"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,
-            forIndexPath: indexPath) as! CategoryCreateTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,
+            for: indexPath) as! CategoryCreateTableViewCell
         // Configure the cell...
-        cell.categoryLabel.text = categoryNames[indexPath.row]
-        let checkMarkToDisplay = NSUserDefaults.standardUserDefaults().integerForKey("categoryLastSelection")
-        if checkMarkToDisplay == indexPath.row{
-            cell.accessoryType = .Checkmark
+        cell.categoryLabel.text = categoryNames[(indexPath as NSIndexPath).row]
+        let checkMarkToDisplay = UserDefaults.standard.integer(forKey: "categoryLastSelection")
+        if checkMarkToDisplay == (indexPath as NSIndexPath).row{
+            cell.accessoryType = .checkmark
         }
         else{
-            cell.accessoryType = .None
+            cell.accessoryType = .none
         }
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let section = indexPath.section
-        let numberOfRows = tableView.numberOfRowsInSection(section)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = (indexPath as NSIndexPath).section
+        let numberOfRows = tableView.numberOfRows(inSection: section)
         for row in 0..<numberOfRows {
-            if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: section)) {
-                cell.accessoryType = row == indexPath.row ? .Checkmark : .None
+            if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) {
+                cell.accessoryType = row == (indexPath as NSIndexPath).row ? .checkmark : .none
             }
         }
-        NSUserDefaults.standardUserDefaults().setInteger(indexPath.row, forKey: "categoryLastSelection")
-        NSUserDefaults.standardUserDefaults().setInteger(indexPath.row, forKey: "createCategory")
+        UserDefaults.standard.set((indexPath as NSIndexPath).row, forKey: "categoryLastSelection")
+        UserDefaults.standard.set((indexPath as NSIndexPath).row, forKey: "createCategory")
     }
-    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        cell?.accessoryType = .None
-        self.genderIsPicked[indexPath.row] = false
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.accessoryType = .none
+        self.genderIsPicked[(indexPath as NSIndexPath).row] = false
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
     }
     

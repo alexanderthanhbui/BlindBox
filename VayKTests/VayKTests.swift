@@ -2,8 +2,8 @@
 //  VayKTests.swift
 //  VayKTests
 //
-//  Created by Matthew Goldspink on 8/26/15.
-//  Copyright (c) 2015 mgoldspink. All rights reserved.
+//  Created by Hayne Park on 11/28/16.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import UIKit
@@ -28,7 +28,7 @@ class VayKTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

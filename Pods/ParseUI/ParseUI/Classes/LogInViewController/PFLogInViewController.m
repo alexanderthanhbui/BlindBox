@@ -103,7 +103,7 @@ NSString *const PFLogInCancelNotification = @"com.parse.ui.login.cancel";
     self.modalPresentationStyle = UIModalPresentationFormSheet;
     _fields = PFLogInFieldsDefault;
 
-    _facebookPermissions = @[ @"public_profile", @"email", @"user_birthday", @"user_friends" ];
+    _facebookPermissions = @[ @"public_profile", @"email", @"user_friends", @"user_birthday" ];
 
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;

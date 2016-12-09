@@ -1,27 +1,27 @@
 //
 //  Utilities.swift
-//  SwiftParseChat
+//  VayK
 //
-//  Created by Jesse Hu on 2/20/15.
-//  Copyright (c) 2015 Jesse Hu. All rights reserved.
+//  Created by Hayne Park on 11/28/16.
+//  Copyright © 2016 Alexander Bui. All rights reserved.
 //
 
 import Foundation
 
 class Utilities {
     
-    class func loginUser(target: AnyObject) {
+    class func loginUser(_ target: AnyObject) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let welcomeVC = storyboard.instantiateViewControllerWithIdentifier("navigationVC") as! UINavigationController
-        target.presentViewController(welcomeVC, animated: true, completion: nil)
+        let welcomeVC = storyboard.instantiateViewController(withIdentifier: "navigationVC") as! UINavigationController
+        target.present(welcomeVC, animated: true, completion: nil)
         
     }
     
-    class func postNotification(notification: String) {
-        NSNotificationCenter.defaultCenter().postNotificationName(notification, object: nil)
+    class func postNotification(_ notification: String) {
+        NotificationCenter.default.post(name: Notification.Name(rawValue: notification), object: nil)
     }
     
-    class func timeElapsed(seconds: NSTimeInterval) -> String {
+    class func timeElapsed(_ seconds: TimeInterval) -> String {
         var elapsed: String
         if seconds < 60 {
             elapsed = "Just now"

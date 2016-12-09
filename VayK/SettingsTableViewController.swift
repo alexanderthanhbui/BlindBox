@@ -12,40 +12,40 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var locationSlider: UISlider!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
-    @IBAction func unwindToSettingsScreen(segue:UIStoryboardSegue) {
+    @IBAction func unwindToSettingsScreen(_ segue:UIStoryboardSegue) {
     }
-    @IBAction func valueChanged(sender: AnyObject) {
-        var currentValue = Int(locationSlider.value)
+    @IBAction func valueChanged(_ sender: AnyObject) {
+        let currentValue = Int(locationSlider.value)
         locationLabel.text = "\(currentValue)mi."
     }
-    @IBAction func valueChangeEnd(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setFloat(locationSlider.value, forKey: "slider_value")
+    @IBAction func valueChangeEnd(_ sender: AnyObject) {
+        UserDefaults.standard.set(locationSlider.value, forKey: "slider_value")
     }
     @IBOutlet weak var minAgeSlider: UISlider!
-    @IBAction func minAgeValueChanged(sender: AnyObject) {
+    @IBAction func minAgeValueChanged(_ sender: AnyObject) {
         let maxInt = Int(maxAgeSlider.value)
         let maxFloat = Float(maxInt)
-        var maxValue: Float = maxFloat
+        let maxValue: Float = maxFloat
         if (sender as! UISlider).value > maxValue {
             (sender as! UISlider).value = maxValue
         }
-        var currentValue = Int(minAgeSlider.value)
+        let currentValue = Int(minAgeSlider.value)
         minAgeLabel.text = "\(currentValue)"
 
     }
-    @IBAction func minAgeValueChangeEnd(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setFloat(minAgeSlider.value, forKey: "min_age_slider_value")
+    @IBAction func minAgeValueChangeEnd(_ sender: AnyObject) {
+        UserDefaults.standard.set(minAgeSlider.value, forKey: "min_age_slider_value")
     }
     @IBOutlet weak var maxAgeSlider: UISlider!
     
-    @IBAction func maxAgeValueChanged(sender: AnyObject) {
+    @IBAction func maxAgeValueChanged(_ sender: AnyObject) {
         let minInt = Int(minAgeSlider.value)
         let minFloat = Float(minInt)
-        var minValue: Float = minFloat
+        let minValue: Float = minFloat
         if (sender as! UISlider).value < minValue {
             (sender as! UISlider).value = minValue
         }
-        var currentValue = Int(maxAgeSlider.value)
+        let currentValue = Int(maxAgeSlider.value)
         if currentValue == 65 {
             maxAgeLabel.text = "\(currentValue)+"
         }
@@ -54,21 +54,21 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func maxAgeValueChangeEnd(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setFloat(maxAgeSlider.value, forKey: "max_age_slider_value")
+    @IBAction func maxAgeValueChangeEnd(_ sender: AnyObject) {
+        UserDefaults.standard.set(maxAgeSlider.value, forKey: "max_age_slider_value")
     }
     
     // Minimum Timeline Code
     @IBOutlet weak var minTimeline: UISlider!
     @IBOutlet weak var minTimelineLabel: UILabel!
-    @IBAction func minTimelineValueChanged(sender: AnyObject) {
+    @IBAction func minTimelineValueChanged(_ sender: AnyObject) {
         let maxInt = Int(maxTimelineSlider.value)
         let maxFloat = Float(maxInt)
-        var maxValue: Float = maxFloat
+        let maxValue: Float = maxFloat
         if (sender as! UISlider).value > maxValue {
             (sender as! UISlider).value = maxValue
         }
-        var currentValue = Int(minTimeline.value)
+        let currentValue = Int(minTimeline.value)
         
         if currentValue == 0 {
             minTimelineLabel.text = "Now"
@@ -84,14 +84,14 @@ class SettingsTableViewController: UITableViewController {
     //Maximum Timeline Code
     @IBOutlet weak var maxTimelineSlider: UISlider!
     @IBOutlet weak var maxTimelineLabel: UILabel!
-    @IBAction func maxTimelineValueChanged(sender: AnyObject) {
+    @IBAction func maxTimelineValueChanged(_ sender: AnyObject) {
         let maxInt = Int(minTimeline.value)
         let maxFloat = Float(maxInt)
-        var maxValue: Float = maxFloat
+        let maxValue: Float = maxFloat
         if (sender as! UISlider).value < maxValue {
             (sender as! UISlider).value = maxValue
         }
-        var currentValue = Int(maxTimelineSlider.value)
+        let currentValue = Int(maxTimelineSlider.value)
         
         if currentValue == 0 {
             maxTimelineLabel.text = "Now"
@@ -103,21 +103,21 @@ class SettingsTableViewController: UITableViewController {
             maxTimelineLabel.text = "\(currentValue) Days"
         }
     }
-    @IBAction func maxTimelineValueChangedEnd(sender: AnyObject) {
-            NSUserDefaults.standardUserDefaults().setFloat(maxTimelineSlider.value, forKey: "max_timeline_slider_value")
+    @IBAction func maxTimelineValueChangedEnd(_ sender: AnyObject) {
+            UserDefaults.standard.set(maxTimelineSlider.value, forKey: "max_timeline_slider_value")
     }
     
     //Minimum BlindBox Size Code
     @IBOutlet weak var minBlindBoxSizeSlider: UISlider!
     @IBOutlet weak var minBlindBoxSizeLabel: UILabel!
-    @IBAction func minBlindBoxValueChanged(sender: AnyObject) {
+    @IBAction func minBlindBoxValueChanged(_ sender: AnyObject) {
         let maxInt = Int(maxBlindBoxSizeSlider.value)
         let maxFloat = Float(maxInt)
-        var maxValue: Float = maxFloat
+        let maxValue: Float = maxFloat
         if (sender as! UISlider).value > maxValue {
             (sender as! UISlider).value = maxValue
         }
-        var currentValue = Int(minBlindBoxSizeSlider.value)
+        let currentValue = Int(minBlindBoxSizeSlider.value)
         
         if currentValue == 10 {
             minBlindBoxSizeLabel.text = "\(currentValue)+"
@@ -126,21 +126,21 @@ class SettingsTableViewController: UITableViewController {
             minBlindBoxSizeLabel.text = "\(currentValue)"
         }
     }
-    @IBAction func minBlindBoxValueChangeEnd(sender: AnyObject) {
-                NSUserDefaults.standardUserDefaults().setFloat(minBlindBoxSizeSlider.value, forKey: "min_blindbox_slider_value")
+    @IBAction func minBlindBoxValueChangeEnd(_ sender: AnyObject) {
+                UserDefaults.standard.set(minBlindBoxSizeSlider.value, forKey: "min_blindbox_slider_value")
     }
     
     //Maximum BlindBox Size Code
     @IBOutlet weak var maxBlindBoxSizeSlider: UISlider!
     @IBOutlet weak var maxBlindBoxSizeLabel: UILabel!
-    @IBAction func maxBlindBoxValueChanged(sender: AnyObject) {
+    @IBAction func maxBlindBoxValueChanged(_ sender: AnyObject) {
         let maxInt = Int(minBlindBoxSizeSlider.value)
         let maxFloat = Float(maxInt)
-        var maxValue: Float = maxFloat
+        let maxValue: Float = maxFloat
         if (sender as! UISlider).value < maxValue {
             (sender as! UISlider).value = maxValue
         }
-        var currentValue = Int(maxBlindBoxSizeSlider.value)
+        let currentValue = Int(maxBlindBoxSizeSlider.value)
         
         if currentValue == 10 {
             maxBlindBoxSizeLabel.text = "\(currentValue)+"
@@ -149,40 +149,30 @@ class SettingsTableViewController: UITableViewController {
             maxBlindBoxSizeLabel.text = "\(currentValue)"
         }
     }
-    @IBAction func maxBlindBoxValueChangedEnd(sender: AnyObject) {
-            NSUserDefaults.standardUserDefaults().setFloat(maxBlindBoxSizeSlider.value, forKey: "max_blindbox_slider_value")
+    @IBAction func maxBlindBoxValueChangedEnd(_ sender: AnyObject) {
+            UserDefaults.standard.set(maxBlindBoxSizeSlider.value, forKey: "max_blindbox_slider_value")
     }
     
     
-    @IBAction func minTimelineValueChangedEnd(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setFloat(minTimeline.value, forKey: "min_timeline_slider_value")
+    @IBAction func minTimelineValueChangedEnd(_ sender: AnyObject) {
+        UserDefaults.standard.set(minTimeline.value, forKey: "min_timeline_slider_value")
     }
     
     @IBOutlet weak var minAgeLabel: UILabel!
     @IBOutlet weak var maxAgeLabel: UILabel!
-    @IBOutlet weak var switchValue: UISwitch!
-    @IBAction func switchValueChanged(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setBool(switchValue.on, forKey: "BlindBoxMode")
-        let isSpanish = NSUserDefaults.standardUserDefaults().objectForKey("BlindBoxMode") as! Bool
-        print(isSpanish)
 
-
-    }
-
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //load view with persistent blindboxmode value
-        switchValue.on =  NSUserDefaults.standardUserDefaults().boolForKey("BlindBoxMode")
 
         //load view with persistent location value
-        let sliderValue = NSUserDefaults.standardUserDefaults().floatForKey("slider_value")
+        let sliderValue = UserDefaults.standard.float(forKey: "slider_value")
         let currentInt = Int(sliderValue)
         let currentString = String(currentInt)
         locationLabel.text = "\(currentString)mi."
         locationSlider.value = sliderValue
         
         //load view with persistent minimum age value
-        let minAgeSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("min_age_slider_value")
+        let minAgeSliderValue = UserDefaults.standard.float(forKey: "min_age_slider_value")
         let minAgeCurrentInt = Int(minAgeSliderValue)
         let minAgeCurrentString = String(minAgeCurrentInt)
         if minAgeCurrentInt == 65 {
@@ -194,7 +184,7 @@ class SettingsTableViewController: UITableViewController {
         minAgeSlider.value = minAgeSliderValue
         
         //load view with persistent maximum age value
-        let maxAgeSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("max_age_slider_value")
+        let maxAgeSliderValue = UserDefaults.standard.float(forKey: "max_age_slider_value")
         let maxAgeCurrentInt = Int(maxAgeSliderValue)
         let maxAgeCurrentString = String(maxAgeCurrentInt)
         if maxAgeCurrentInt == 65 {
@@ -206,8 +196,8 @@ class SettingsTableViewController: UITableViewController {
         maxAgeSlider.value = maxAgeSliderValue
         
         //load view with persistent gender value
-        let defaults = NSUserDefaults.standardUserDefaults()
-        var Gender = defaults.integerForKey("Gender")
+        let defaults = UserDefaults.standard
+        let Gender = defaults.integer(forKey: "Gender")
         if Gender == 0 {
            genderLabel.text = "Only Men"
         }
@@ -219,7 +209,7 @@ class SettingsTableViewController: UITableViewController {
         }
         
         //load view with persistent minimum timeline value
-        let minTimelineSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("min_timeline_slider_value")
+        let minTimelineSliderValue = UserDefaults.standard.float(forKey: "min_timeline_slider_value")
         let minTimelineCurrentInt = Int(minTimelineSliderValue)
         let minTimelineCurrentString = String(minTimelineCurrentInt)
         if minTimelineCurrentInt == 0 {
@@ -234,7 +224,7 @@ class SettingsTableViewController: UITableViewController {
         minTimeline.value = minTimelineSliderValue
         
         //load view with persistent maximum timeline value
-        let maxTimelineSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("max_timeline_slider_value")
+        let maxTimelineSliderValue = UserDefaults.standard.float(forKey: "max_timeline_slider_value")
         let maxTimelineCurrentInt = Int(maxTimelineSliderValue)
         let maxTimelineCurrentString = String(maxTimelineCurrentInt)
         if maxTimelineCurrentInt == 0 {
@@ -249,7 +239,7 @@ class SettingsTableViewController: UITableViewController {
         maxTimelineSlider.value = maxTimelineSliderValue
 
         //load view with persistent minimum blindbox size value
-        let minBlindBoxSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("min_blindbox_slider_value")
+        let minBlindBoxSliderValue = UserDefaults.standard.float(forKey: "min_blindbox_slider_value")
         let minBlindBoxSizeCurrentInt = Int(minBlindBoxSliderValue)
         let minBlindBoxSizeCurrentString = String(minBlindBoxSizeCurrentInt)
         if minBlindBoxSizeCurrentInt == 10 {
@@ -261,7 +251,7 @@ class SettingsTableViewController: UITableViewController {
         minBlindBoxSizeSlider.value = minBlindBoxSliderValue
         
         //load view with persistent maximum blindbox size value
-        let maxBlindBoxSliderValue = NSUserDefaults.standardUserDefaults().floatForKey("max_blindbox_slider_value")
+        let maxBlindBoxSliderValue = UserDefaults.standard.float(forKey: "max_blindbox_slider_value")
         let maxBlindBoxSizeCurrentInt = Int(maxBlindBoxSliderValue)
         let maxBlindBoxSizeCurrentString = String(maxBlindBoxSizeCurrentInt)
         if maxBlindBoxSizeCurrentInt == 10 {
