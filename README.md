@@ -1,6 +1,6 @@
 # BlindBox
 
-Social networking app using location and common interest with Facebook login and [JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController)
+Social networking app using location and common interest with Facebook login, [JSQMessagesViewController](https://github.com/jessesquires/JSQMessagesViewController), and [SwiftParseChat](https://github.com/huyouare/SwiftParseChat). 
 
 # Using it
 
@@ -10,7 +10,7 @@ email: yuxzpci_moiduman_1470419984@tfbnw.net
 
 password: testuser123
 
-Once logged on, users may find groups made by other users based on their current location. Alternatively the user may create a new group by clicking on the search bar at the top pf the main view.
+Once logged on, users may find groups made by other users based on their current location. Alternatively the user may create a new group by clicking on the search bar at the top of the main view.
 
 ## License
 
