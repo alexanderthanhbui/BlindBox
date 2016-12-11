@@ -10,7 +10,7 @@ email: yuxzpci_moiduman_1470419984@tfbnw.net
 
 password: testuser123
 
-Once logged on, users may find groups made by other users based on their current location. Alternatively the user may create a new group by clicking on the search bar at the top of the main view.
+Once logged on, users may find groups made by other users based on their current location. Alternatively the user may create a new group by clicking on the search bar at the top of the main view. Once users are in, they may chat with the group or they can direct message individials of the group by clicking on their avatar and going to their profile.
 
 ## License
 
