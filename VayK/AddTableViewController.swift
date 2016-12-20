@@ -217,10 +217,17 @@ class AddTableViewController: UITableViewController, UIImagePickerControllerDele
         })
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.dataSource = self
         pickerView.delegate = self
+        self.nameTextField.delegate = self;
+
         //UIPicker
     
         wheelContents = [dateData,hourData,minuteData,timeData]
